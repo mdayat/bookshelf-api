@@ -4,7 +4,7 @@
   "env": {
     "browser": true,
     "node": true,
-    "es2021": true
+    "es6": true
   },
 
   "parserOptions": {
@@ -31,6 +31,14 @@
     "no-restricted-globals": ["error", "event", "fdescribe"],
 
     // Warn if there is console.log
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    // Let the formatter do this job for me
+    "object-curly-newline": "off",
+
+    // Allow import extension, except package imports
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
+
+    "prefer-destructuring": "off"
   }
 }
