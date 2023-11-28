@@ -116,9 +116,18 @@ const getBooks = (_, h) => {
   const res = h.response({
     status: "success",
     data: {
-      books,
+      books: [
+        ...books.map((book) => {
+          return {
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          };
+        }),
+      ],
     },
   });
+
   return res;
 };
 
