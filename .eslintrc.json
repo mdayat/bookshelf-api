@@ -1,0 +1,36 @@
+{
+  "extends": ["eslint:recommended", "airbnb-base"],
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+
+  "rules": {
+    // For me, to add curly brackets/block/body for any function is better than not. Being explicit is good though
+    "arrow-body-style": ["error", "always"],
+
+    // I would prefer to use "named export" instead of "default export" because it can help with consistency
+    // For example, Anna might imported like this: "import component from "./example-component.js",
+    // But John will do this instead: "import exampleComponent from "./example-component.js".
+    "import/prefer-default-export": "off",
+
+    // I don't think the "++" operator is bad in all cases.
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+
+    // I would prefer double quote rules, and i don't think template literals need to be prohibited
+    "quotes": ["error", "double", { "allowTemplateLiterals": true }],
+
+    // Not all global variables should be restricted
+    "no-restricted-globals": ["error", "event", "fdescribe"],
+
+    // Warn if there is console.log
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
+  }
+}
