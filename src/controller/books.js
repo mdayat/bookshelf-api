@@ -57,7 +57,7 @@ const updateBook = (req, h) => {
   if (Object.hasOwn(payload, "name") === false) {
     const res = h.response({
       status: "fail",
-      message: "Gagal menambahkan buku. Mohon isi nama buku",
+      message: "Gagal memperbarui buku. Mohon isi nama buku",
     });
     res.code(400);
     return res;
@@ -67,7 +67,7 @@ const updateBook = (req, h) => {
     const res = h.response({
       status: "fail",
       message:
-        "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount",
+        "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount",
     });
     res.code(400);
     return res;
@@ -109,7 +109,6 @@ const updateBook = (req, h) => {
     status: "success",
     message: "Buku berhasil diperbarui",
   });
-  res.code(201);
   return res;
 };
 
@@ -120,16 +119,57 @@ const getBooks = (_, h) => {
       books,
     },
   });
-
   return res;
 };
 
-const getBook = () => {
-  return "GET BOOK";
+const getBook = (req, h) => {
+  const bookId = req.params.bookId;
+  const bookIndex = books.findIndex((book) => {
+    return book.id === bookId;
+  });
+
+  if (bookIndex === -1) {
+    const res = h.response({
+      status: "fail",
+      message: "Buku tidak ditemukan",
+    });
+    res.code(404);
+    return res;
+  }
+
+  const book = books[bookIndex];
+
+  const res = h.response({
+    status: "success",
+    data: {
+      book,
+    },
+  });
+  return res;
 };
 
-const deleteBook = () => {
-  return "DELETE BOOK";
+const deleteBook = (req, h) => {
+  const bookId = req.params.bookId;
+  const bookIndex = books.findIndex((book) => {
+    return book.id === bookId;
+  });
+
+  if (bookIndex === -1) {
+    const res = h.response({
+      status: "fail",
+      message: "Buku gagal dihapus. Id tidak ditemukan",
+    });
+    res.code(404);
+    return res;
+  }
+
+  books.splice(bookIndex, 1);
+
+  const res = h.response({
+    status: "success",
+    message: "Buku berhasil dihapus",
+  });
+  return res;
 };
 
 export { createBook, updateBook, getBooks, getBook, deleteBook };
